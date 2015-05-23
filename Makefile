@@ -3,7 +3,7 @@ OBJCOPY=arm-none-eabi-objcopy
 OBJDUMP=arm-none-eabi-objdump
 
 # Target
-TARGET=lpc17xx
+TARGET=thumbv7m-none-eabi
 
 # Files
 OUT_DIR=target/$(TARGET)/release

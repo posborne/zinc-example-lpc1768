@@ -12,14 +12,14 @@ Building the Example
 The code can be built with cargo.
 
 ```
-$ cargo build --release --target=lpc17xx
+$ cargo build --release --target=thumbv7m-none-eabi
 ```
 
 This will generate an object file, to turn this into a bin file or hex
 file you will need to run objdump on the resultant binary.  E.g.
 
 ```
-$ objdump -O binary ./target/lpc17xx/release/blink blink.bin
+$ objdump -O binary ./target/thumbv7m-none-eabi/release/blink blink.bin
 ```
 
 Since you are like to need to type this quite frequently, you may want

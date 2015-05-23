@@ -11,7 +11,6 @@
     "target-endian": "little",
     "target-pointer-width": "32",
     "no-compiler-rt": true,
-    "linker": "arm-none-eabi-gcc",
     "pre-link-args": [
         "-lm", "-lgcc", "-mcpu=cortex-m3", "-mthumb",
         "-Tlayout.ld"
