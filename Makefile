@@ -22,7 +22,6 @@ listing: $(OUT_FILE).lst
 
 # Target is PHONY so cargo can deal with dependencies
 $(OUT_FILE):
-	cd $(CARGO_ROOT)
 	cargo build --release --target=$(TARGET) --verbose
 
 $(OUT_DIR)/%.bin: $(OUT_DIR)/%
