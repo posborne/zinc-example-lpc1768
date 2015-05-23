@@ -12,15 +12,9 @@ OUT_FILE=$(OUT_DIR)/blink
 .PHONY: build clean listing $(OUT_FILE)
 
 all: build listing
-
 build: $(OUT_FILE).bin
-
-clean:
-	cargo clean
-
 listing: $(OUT_FILE).lst
 
-# Target is PHONY so cargo can deal with dependencies
 $(OUT_FILE):
 	cargo build --release --target=$(TARGET) --verbose
 
@@ -29,3 +23,6 @@ $(OUT_DIR)/%.bin: $(OUT_DIR)/%
 
 $(OUT_DIR)/%.lst: $(OUT_DIR)/%
 	$(OBJDUMP) -D $< > $@
+
+clean:
+	cargo clean
