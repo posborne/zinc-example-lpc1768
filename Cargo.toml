@@ -1,0 +1,12 @@
+[package]
+name = "rust-lpc1768-blink"
+version = "0.1.0"
+authors = ["Paul Osborne <osbpau@gmail.com>"]
+build = "build.rs"
+
+[dependencies.zinc]
+git = "https://github.com/mcoffin/zinc.git"
+branch = "new-build"
+
+[dependencies.core]
+git = "https://github.com/bharrisau/rust-libcore"
