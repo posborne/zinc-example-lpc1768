@@ -1,44 +1,32 @@
-STRIP=strip
-OBJCOPY=objcopy
-OBJDUMP=objdump
-EXAMPLE_NAME=blink
+# Toolchain
+OBJCOPY=arm-none-eabi-objcopy
+OBJDUMP=arm-none-eabi-objdump
+
+# Target
 TARGET=lpc17xx
 
-CARGO_ROOT=.
-MCU=lpc17xx
+# Files
+OUT_DIR=target/$(TARGET)/release
+OUT_FILE=$(OUT_DIR)/blink
 
-# Output directory
-OUT_DIR=$(CARGO_ROOT)/target/$(TARGET)/release
-EXAMPLE_DIR=$(OUT_DIR)/examples
+.PHONY: build clean listing $(OUT_FILE)
 
-BIN_FILE=$(EXAMPLE_DIR)/$(EXAMPLE_NAME).bin
-HEX_FILE=$(EXAMPLE_DIR)/$(EXAMPLE_NAME).hex
-LST_FILE=$(EXAMPLE_DIR)/$(EXAMPLE_NAME).lst
-EXAMPLE_FILE=$(EXAMPLE_DIR)/$(EXAMPLE_NAME)
+all: build listing
 
-RUSTC_FLAGS=--target=$(TARGET) --out-dir=$(OUT_DIR) --cfg feature=\"$(MCU)\" -C opt-level=2
-
-.PHONY: build clean listing $(EXAMPLE_FILE)
-
-all: build
-
-build: $(BIN_FILE)
+build: $(OUT_FILE).bin
 
 clean:
 	cargo clean
 
-listing: $(LST_FILE)
+listing: $(OUT_FILE).lst
 
 # Target is PHONY so cargo can deal with dependencies
-$(EXAMPLE_FILE):
+$(OUT_FILE):
 	cd $(CARGO_ROOT)
-	cargo build --example $(EXAMPLE_NAME) --release --target=$(TARGET) --verbose
+	cargo build --release --target=$(TARGET) --verbose
 
-$(BIN_FILE): $(EXAMPLE_FILE)
+$(OUT_DIR)/%.bin: $(OUT_DIR)/%
 	$(OBJCOPY) -O binary $< $@
 
-$(LST_FILE): $(EXAMPLE_FILE)
+$(OUT_DIR)/%.lst: $(OUT_DIR)/%
 	$(OBJDUMP) -D $< > $@
-
-$(OUT_DIR):
-	mkdir -p $@
