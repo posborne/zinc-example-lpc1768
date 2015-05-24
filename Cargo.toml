@@ -8,6 +8,21 @@ git = "https://github.com/mcoffin/zinc.git"
 branch = "new-build"
 features = ["lpc17xx"]
 
+[dependencies.macro_platformtree]
+git = "https://github.com/mcoffin/zinc.git"
+branch = "new-build"
+path = "macro_platformtree"
+
+[dependencies.ioreg]
+git = "https://github.com/mcoffin/zinc.git"
+branch = "new-build"
+path = "ioreg"
+
+[dependencies.platformtree]
+git = "https://github.com/mcoffin/zinc.git"
+branch = "new-build"
+path = "platformtree"
+
 [dependencies.core]
 git = "https://github.com/bharrisau/rust-libcore"
 

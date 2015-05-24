@@ -1,39 +1,58 @@
-#![feature(no_std)]
-#![feature(core)]
+#![feature(plugin, no_std, core, start)]
 #![no_std]
-#![feature(start)]
+#![plugin(macro_platformtree)]
 
 extern crate core;
 extern crate zinc;
 
-use zinc::hal::timer::Timer;
-use zinc::hal::lpc17xx::{pin, timer};
-use zinc::hal::pin::GpioDirection;
-use zinc::hal::pin::Gpio;
-use core::option::Option::Some;
-
-#[start]
-fn start(_: isize, _: *const *const u8) -> isize {
-    main();
-    0
-}
-
-pub fn main() {
-    zinc::hal::mem_init::init_stack();
-    zinc::hal::mem_init::init_data();
-    
-    // P1.20 => LED-2 (mbed LPC1768)
-    let led2 = pin::Pin::new(
-        pin::Port::Port1, 19,
-        pin::Function::Gpio,
-        Some(GpioDirection::Out));
-
-    let timer = timer::Timer::new(timer::TimerPeripheral::Timer0, 25, 4);
-    
-    loop  {
-        led2.set_high();
-        timer.wait_ms(10);
-        led2.set_low();
-        timer.wait_ms(10);
+platformtree!(
+  lpc17xx@mcu {
+    clock {
+      source = "main-oscillator";
+      source_frequency = 12_000_000;
+      pll {
+        m = 50;
+        n = 3;
+        divisor = 4;
+      }
     }
+
+    timer {
+      timer@1 {
+        counter = 25;
+        divisor = 4;
+      }
+    }
+
+    gpio {
+      1 {
+        led1@18 { direction = "out"; }
+        led2@20 { direction = "out"; }
+      }
+    }
+  }
+
+  os {
+    single_task {
+      loop = "run";
+      args {
+        timer = &timer;
+        led1 = &led1;
+        led2 = &led2;
+      }
+    }
+  }
+);
+
+fn run(args: &pt::run_args) {
+  use zinc::hal::pin::Gpio;
+  use zinc::hal::timer::Timer;
+
+  args.led1.set_high();
+  args.led2.set_low();
+  args.timer.wait(1);
+
+  args.led1.set_low();
+  args.led2.set_high();
+  args.timer.wait(1);
 }
