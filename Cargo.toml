@@ -24,7 +24,7 @@ branch = "new-build"
 path = "platformtree"
 
 [dependencies.core]
-git = "https://github.com/bharrisau/rust-libcore"
+git = "https://github.com/hackndev/rust-libcore"
 
 [[bin]]
 name = "blink"
