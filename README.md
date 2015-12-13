@@ -48,12 +48,23 @@ version = "0.1.0"
 authors = ["Paul Osborne <osbpau@gmail.com>"]
 
 [dependencies.zinc]
-git = "https://github.com/mcoffin/zinc.git"
-branch = "new-build"
-features = ["lpc17xx"]
+git = "https://github.com/hackndev/zinc.git"
+features = ["mcu_lpc17xx"]
+
+[dependencies.macro_platformtree]
+git = "https://github.com/hackndev/zinc.git"
+path = "macro_platformtree"
+
+[dependencies.ioreg]
+git = "https://github.com/hackndev/zinc.git"
+path = "ioreg"
+
+[dependencies.platformtree]
+git = "https://github.com/hackndev/zinc.git"
+path = "platformtree"
 
 [dependencies.core]
-git = "https://github.com/bharrisau/rust-libcore"
+git = "https://github.com/hackndev/rust-libcore"
 
 [[bin]]
 name = "blink"
@@ -67,7 +78,19 @@ of the Zinc repository.
 
 ### Step 4: Tell rust about your toolchain
 
-Something, something, TBD.
+This usually requires putting a couple lines like this in your
+`.cargo/config` so that Rust knows to use a proper cross-linker for
+your target:
+
+```toml
+[target.thumbv7em-none-eabi]
+linker = "arm-none-eabi-gcc"
+ar = "arm-none-eabi-ar"
+
+[target.thumbv7m-none-eabi]
+linker = "arm-none-eabi-gcc"
+ar = "arm-none-eabi-ar"
+```
 
 ### Step 4: Automate artifact generation
 

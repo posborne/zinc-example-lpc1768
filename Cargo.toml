@@ -1,26 +1,26 @@
 [package]
 name = "rust-lpc1768-blink"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Paul Osborne <osbpau@gmail.com>"]
 
 [dependencies.zinc]
-git = "https://github.com/mcoffin/zinc.git"
-branch = "new-build"
-features = ["lpc17xx"]
+git = "https://github.com/hackndev/zinc.git"
+branch = "master"
+features = ["mcu_lpc17xx"]
 
 [dependencies.macro_platformtree]
-git = "https://github.com/mcoffin/zinc.git"
-branch = "new-build"
+git = "https://github.com/hackndev/zinc.git"
+branch = "master"
 path = "macro_platformtree"
 
 [dependencies.ioreg]
-git = "https://github.com/mcoffin/zinc.git"
-branch = "new-build"
+git = "https://github.com/hackndev/zinc.git"
+branch = "master"
 path = "ioreg"
 
 [dependencies.platformtree]
-git = "https://github.com/mcoffin/zinc.git"
-branch = "new-build"
+git = "https://github.com/hackndev/zinc.git"
+branch = "master"
 path = "platformtree"
 
 [dependencies.core]

@@ -1,8 +1,7 @@
-#![feature(plugin, no_std, core, start)]
+#![feature(plugin, start, core_intrinsics)]
 #![no_std]
 #![plugin(macro_platformtree)]
 
-extern crate core;
 extern crate zinc;
 
 platformtree!(
